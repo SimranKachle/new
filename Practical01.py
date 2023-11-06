@@ -1,30 +1,54 @@
+# Recursive Fibonacci function
+def recursive_fibonacci(n):
+    if n <= 1:
+        return n
+    else:
+        # Recursively calculate Fibonacci numbers
+        return recursive_fibonacci(n - 1) + recursive_fibonacci(n - 2)
+# It prints step by step 
+# Non-Recursive Fibonacci function
+def non_recursive_fibonacci(n):
+    first = 0
+    second = 1
+    print(first)  # Print the first Fibonacci number
+    if n > 1:
+        print(second)  # Print the second Fibonacci number
+    for _ in range(2, n):
+        # Calculate the next Fibonacci number iteratively
+        third = first + second
+        first = second
+        second = third
+        print(third)
+
+# It is printing inside the loop itself
+
+if __name__ == "__main__":
+    n = int(input("Enter the number of Fibonacci numbers you want: "))
+    for i in range(n):
+        # Print Fibonacci numbers using the recursive function
+        print(recursive_fibonacci(i))  # Recursive Fibonacci has exponential time and O(n) space complexity
+    
+    # Print Fibonacci numbers using the non-recursive function
+    non_recursive_fibonacci(n)  # Non-recursive Fibonacci has linear (O(n)) time and constant (O(1)) space complexity
 
 
-def knapsack(value,weight,capacity):
-    n = len(value)-1
+# Let's analyze the time and space complexity of the provided recursive and non-recursive Fibonacci implementations.
 
-    m = [[-1]*(capacity+1) for _ in range(n+1)]
+# **Recursive Fibonacci (`recursive_fibonacci` function):**
 
-    for w in range(capacity+1):
-        m[0][w]=0
+# Time Complexity:
+# - The time complexity of the recursive Fibonacci function is exponential, specifically O(2^n). This is because it recalculates Fibonacci numbers for smaller values many times, leading to a large number of redundant calculations. For each call to `recursive_fibonacci`, it makes two recursive calls (for `n-1` and `n-2`).
 
-    for i in range(1,n+1):
-        for w in range(capacity+1):
-            if weight[i]>w:
-                m[i][w]=m[i-1][w]
-            else:
-                m[i][w] = max(m[i-1][w-weight[i]]+value[i],m[i-1][w])
-    return m[n][capacity]
-n = int(input("Enter number of items: "))
-value = input("Enter value for {} items ".format(n)).split()
-value = [ int(v) for v in value]
-value.insert(0,None)
+# Space Complexity:
+# - The space complexity of the recursive Fibonacci function is O(n) due to the recursion stack. In the worst case, there will be up to `n` function calls on the stack, and each call consumes space for its arguments and local variables.
 
-weight = input("Enter weight for {} items ".format(n)).split()
-weight = [ int(w) for w in weight]
-weight.insert(0,None)
+# **Non-Recursive Fibonacci (`non_recursive_fibonacci` function):**
 
-capacity = int(input("Enter the capacity: "))
+# Time Complexity:
+# - The time complexity of the non-recursive Fibonacci function is O(n). It uses a simple loop to calculate and print the first `n` Fibonacci numbers. Each iteration of the loop computes the next Fibonacci number in constant time.
 
-max = knapsack(value,weight,capacity)
-print(max)
+# Space Complexity:
+# - The space complexity is O(1) because it uses a constant amount of extra space regardless of the input `n`. It only stores a few variables (e.g., `first`, `second`, `third`) that do not depend on `n`.
+
+# In summary, the non-recursive approach is more efficient in terms of both time and space complexity, especially for large values of `n`, compared to the recursive approach, which has exponential time complexity and higher space usage due to the call stack.
+#  It's intended to show that the recursive approach has exponential time complexity and higher space complexity due to the recursive calls, while the non-recursive approach is more efficient with linear time complexity and constant space complexity.
